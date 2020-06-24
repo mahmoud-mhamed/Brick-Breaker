@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport'
+		  content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+	<meta http-equiv='X-UA-Compatible' content='ie=edge'>
+	<title>Brick Breaker</title>
+	<link rel='icon' href='img/icon.jpg'>
+	<link rel='stylesheet' href='css/bootstrap.min.css'>
+	<link rel='stylesheet' href='css/animate.min.css'>
+	<link rel='stylesheet' href='css/sweetalert2.min.css'>
+	<link rel='stylesheet' href='css/css.css'>
+
+	<!--fonts-->
+	<link rel='stylesheet' href='fonts/awesome/all.css'>
+	<style>
+		@font-face {
+			font-family: 'font-ar';
+			src: url("fonts/ArbFONTS-4_88.ttf");
+		}
+	</style>
+	<link href="https://fonts.googleapis.com/css?family=Charm" rel="stylesheet">
+	<!--end fonts-->
+
+	<script src='js/jquery-3.3.1.min.js'></script>
+	<script src='js/popper.min.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<script src='js/sweetalert2.all.min.js'></script>
+	<script src='js/jquery.fullscreen.js'></script>
+	<script src='js/js.js'></script>
+</head>
+<body style='height: 100vh;width: 100vw;overflow: hidden'>
+<div class='load position-fixed text-center' style='top: 0;left: 0;z-index: 1000000;
+                    width: 100vw;height: 100vh;background: rgba(255,255,255,1);'>
+	<div class='' style='margin-top: 4%'>
+		<img src='img/load.gif'  style='width:200px;height:200px;max-width: 70%;max-height: 70%' alt='loding image'>
+		<h2 class=''>برجاء الانتظار جاري التحميل</h2>
+	</div>
+</div>
+<header class='h1 pt-2 px-2 text-sm-center fixed-top text-white'>
+	<div class='container-fluid'>
+		<div class='row no-gutters'>
+			<div class='col-10 text-md-left'>
+				<h1 class='d-inline-block'>Brick Breaker</h1>
+				<div class='d-inline-block'>
+					<button class='btn btn-primary' data-type='start'>Start</button>
+					<button class='btn btn-warning' style='display: none' data-type='pause'>Pause</button>
+					<button class='btn btn-primary d-none d-md-inline-block' data-type='full'>Full Screen</button>
+				</div>
+			</div>
+			<div class='col text-right'>
+				<h3 class='pt-1'>
+					<button type="button" class='navToggle'>
+						<i class="fas fa-cogs text-white mt-1"></i>
+					</button>
+				</h3>
+			</div>
+		</div>
+	</div>
+</header>
+<div class='overlay'></div>
+<aside class='text-center h5 pr-3'>
+	<div class='row no-gutters mt-3'>
+		<div class='col-8'>
+			<span>ball Color</span>
+		</div>
+		<div class='col'>
+			<input type="color" class='form-control' id="ballColor" value="#400080"/>
+		</div>
+	</div>
+	<div class='row no-gutters mt-3'>
+		<div class='col-8'>
+			<span>paddle Color</span>
+		</div>
+		<div class='col'>
+			<input type="color" class='form-control' id="paddleColor" value="#800040"/>
+		</div>
+	</div>
+	<div class='row no-gutters mt-3'>
+		<div class='col-8'>
+			<span>Game live</span>
+		</div>
+		<div class='col'>
+			<input type="number" class='form-control' id="gameLive" min='1' value="3" max="10" />
+		</div>
+	</div>
+	<div class='row no-gutters mt-3'>
+		<div class='col-8'>
+			<span>max level</span>
+		</div>
+		<div class='col'>
+			<input type="number" class='form-control' id="maxLevel" min='1' value="10" max="20"/>
+		</div>
+	</div>
+	<div class='row no-gutters mt-3'>
+		<div class='col-8'>
+			<span>ball Count</span>
+		</div>
+		<div class='col'>
+			<input type="number" class='form-control' id="ballCount" min='1' value="1" max="5" />
+		</div>
+	</div>
+	<div class='row no-gutters mt-3'>
+		<div class='col-8'>
+			<span>Game Level</span>
+		</div>
+		<div class='col'>
+			<input type="number" class='form-control' id="level" min='1' value="1" max="20" />
+		</div>
+	</div>
+	<div class='mt-3'>
+		<div class=''>
+			<span>Sound</span>
+		</div>
+		<div class='mt-2 pl-2'>
+			<input type="range" class='form-control' min='0' value="5" max="9" />
+		</div>
+	</div>
+	<div class='mt-3'>
+		<a href='https://www.facebook.com/profile.php?id=100009734383434' target='_blank' title='facebock'><i class="fab pr-2 fa-facebook-square fa-2x"></i></a>
+		<a href='http://mahmoud-mohamed.eb2a.com/' target='_blank' title='myWebSite'><i class="fab pl-3 fa-optin-monster fa-2x"></i></a>
+	</div>
+	<a href='http://mahmoud-mohamed.eb2a.com/' target='_blank' class='mt-3 text-white'>
+		Mahmoud Mohamed
+	</a>
+	<button data-type='start' class='btn btn-primary  mt-4 px-4'>
+		<span class='font-weight-bold text-white h3'>Start</span>
+	</button>
+	<button data-type='full' class='btn btn-primary  mt-4 mb-2 px-4'>
+		<span class='font-weight-bold text-white h3'>FullScreen</span>
+	</button>
+
+
+</aside>
+<main>
+	<div class='p-3'>
+		<canvas id="myCanvas" width='300' height='200'></canvas>
+	</div>
+</main>
+<audio id="audio"  src="sound/point.mp3"></audio>
+<audio id="newLevel"  src="sound/newlevel.mp3"></audio>
+<audio id="win"  src="sound/win.MP3"></audio>
+<audio id="lose" src="sound/lose.MP3"></audio>
+<audio id="bollLose"  src="sound/bollLose.wav"></audio>
+<audio id='playSound' autoplay loop src="sound/playSound.mp3"></audio>
+<img src='img/heart.png'  id='heart' class='d-none' alt='heart'>
+
+</body>
+<script src="js.js"></script>
+<script>
+    window.onload=function () {
+        $('div.load').css('display','none');
+		$('#playSound')[0].play();
+    };
+</script>
+</html>
