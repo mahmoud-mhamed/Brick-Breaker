@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body{
+	background:#EEE;
+}
+#myCanvas{
+    background: #eee;
+    display: block;
+    margin: 0 auto;
+	background-image:url(B1.jpg);
+    background-repeat: round;
+	position:fixed;
+	top:70px;
+	left:170px;
+	cursor:pointer;
+}
+header{
+	width:507px;
+	margin:0 auto;
+	color:#a50000;
+	font-family:tahoma;
+	font-weight:bolder;
+}
+header h3{
+	padding-left:150px;
+}
+aside div{
+	margin-top:7px;
+}
+aside div span{
+	display:inline-block;
+	width:100px;
+}
+aside div input{
+	width:100px;
+}
+button{
+	width:130px;
+	margin-top:20px;
+}
